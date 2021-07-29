@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\DB;
 class books extends Controller
 {
     // 查詢書名
-    function get_books($keywords){
+    function get_books($keywords = ''){
         try{
             // 查詢SQL(模糊查詢關鍵字)
             $data = DB::table('books_list')
-                ->select('id','book_name','book_price')
-                ->where('book_name', 'like', "%{$keywords}%")
-                ->get();
-            return ["code"=>true,"msg"=> "查詢成功","data"=>$data];
+                ->select('id','book_name','book_price');
+            if(!empty($keywords))
+                $data->where('book_name', 'like', "%{$keywords}%");
+            return ["code"=>true,"msg"=> "查詢成功","data"=>$data->get()];
         }catch (\Exception $e){
             return ["code"=>false,"msg"=> "查詢失敗","data"=>$e];
         }

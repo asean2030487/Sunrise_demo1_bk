@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 // 查詢書本
-Route::get('/get_books/{id}','books@get_books');
+Route::get('/get_books/{id?}','books@get_books');
 // 新增書本
 Route::post('/post_books','books@post_books');
 // 刪除書本
